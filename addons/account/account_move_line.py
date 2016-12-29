@@ -634,7 +634,7 @@ class account_move_line(osv.osv):
                 if (not time.strptime(l.date[:10],'%Y-%m-%d') >=
                         time.strptime(l.period_id.date_start, '%Y-%m-%d') or
                         not time.strptime(l.date[:10], '%Y-%m-%d') <=
-                        time.strptime(l.period_id.date_stop, '%Y-%m-%d'i)):
+                        time.strptime(l.period_id.date_stop, '%Y-%m-%d')):
                     raise osv.except_osv(
                         _('Error!'),
                         _('For line %s the date %s of your Journal Entry'
