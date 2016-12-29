@@ -631,8 +631,21 @@ class account_move_line(osv.osv):
     def _check_date(self, cr, uid, ids, context=None):
         for l in self.browse(cr, uid, ids, context=context):
             if l.journal_id.allow_date:
-                if not time.strptime(l.date[:10],'%Y-%m-%d') >= time.strptime(l.period_id.date_start, '%Y-%m-%d') or not time.strptime(l.date[:10], '%Y-%m-%d') <= time.strptime(l.period_id.date_stop, '%Y-%m-%d'):
-                    return False
+                if (not time.strptime(l.date[:10],'%Y-%m-%d') >=
+                        time.strptime(l.period_id.date_start, '%Y-%m-%d') or
+                        not time.strptime(l.date[:10], '%Y-%m-%d') <=
+                        time.strptime(l.period_id.date_stop, '%Y-%m-%d'i)):
+                    raise osv.except_osv(
+                        _('Error!'),
+                        _('For line %s the date %s of your Journal Entry'
+                          ' is not in the defined period %s!\n'
+                          'You should change the date or remove this'
+                          ' constraint from the journal %s.') %
+                        (l.name or str(l.id),
+                         l.date[:10],
+                         l.period_id.name,
+                         l.journal_id.name)
+                    )
         return True
 
     def _check_currency(self, cr, uid, ids, context=None):
