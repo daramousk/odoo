@@ -5225,12 +5225,28 @@ class BaseModel(object):
         :rtype: List of dictionaries.
 
         """
+        def pr_stop(pr):
+            if not pr:
+                return
+            pr.disable()
+            ss = StringIO.StringIO()
+            ps = pstats.Stats(pr, stream=ss).sort_stats('cumulative')
+            ps.print_stats(40)
+            _logger.info(ss.getvalue())
+
+        pr = None
+        if self._name == "product.product":
+            import cProfile, pstats, StringIO
+            pr = cProfile.Profile()
+            pr.enable()
         record_ids = self.search(cr, uid, domain or [], offset=offset, limit=limit, order=order, context=context)
         if not record_ids:
+            pr_stop(pr)
             return []
 
         if fields and fields == ['id']:
             # shortcut read if we only want the ids
+            pr_stop(pr)
             return [{'id': id} for id in record_ids]
 
         # read() ignores active_test, but it would forward it to any downstream search call
@@ -5242,10 +5258,12 @@ class BaseModel(object):
                                                                                                                                              
         result = self.read(cr, uid, record_ids, fields, context=read_ctx) 
         if len(result) <= 1:
+            pr_stop(pr)
             return result
 
         # reorder read
         index = dict((r['id'], r) for r in result)
+        pr_stop(pr)
         return [index[x] for x in record_ids if x in index]
 
     def _register_hook(self, cr):
