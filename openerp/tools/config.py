@@ -468,6 +468,11 @@ class configmanager(object):
             elif isinstance(self.options[arg], basestring) and self.casts[arg].type in optparse.Option.TYPE_CHECKER:
                 self.options[arg] = optparse.Option.TYPE_CHECKER[self.casts[arg].type](self.casts[arg], arg, self.options[arg])
 
+        for option in ['logfile', 'data_dir']:
+            if self.options[option]:
+                self.options[option] = os.path.abspath(os.path.expanduser(
+                    os.path.expandvars(self.options[option])))
+
         self.options['root_path'] = os.path.abspath(os.path.expanduser(os.path.expandvars(os.path.dirname(openerp.__file__))))
         if not self.options['addons_path'] or self.options['addons_path']=='None':
             default_addons = []
@@ -479,9 +484,13 @@ class configmanager(object):
                 default_addons.append(main_addons)
             self.options['addons_path'] = ','.join(default_addons)
         else:
-            self.options['addons_path'] = ",".join(
-                    os.path.abspath(os.path.expanduser(os.path.expandvars(x.strip())))
-                      for x in self.options['addons_path'].split(','))
+            paths = []
+            for path in self.options['addons_path'].split(','):
+                path = os.path.expanduser(os.path.expandvars(path.strip()))
+                paths.append(os.path.abspath(
+                    os.path.join(self.options['root_path'], path)
+                    if not os.path.isabs(path) else path))
+            self.options['addons_path'] = ','.join(paths)
 
         self.options['init'] = opt.init and dict.fromkeys(opt.init.split(','), 1) or {}
         self.options['demo'] = not opt.without_demo and dict(self.options['init']) or {}
