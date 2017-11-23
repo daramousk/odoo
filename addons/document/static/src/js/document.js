@@ -19,7 +19,14 @@ openerp.document = function (instance) {
                              attachment.name = _.str.sprintf(_t("%s (%s)"), attachment.name, i+1)
                          })
                   })
-            self._super(attachments);
+           self._super(attachments);
+            if (this.items.files.length > 0){
+                this.$el.find('button').filter(function (index) {
+                    if (index === 1) {
+                        $(this).css('border-color', 'red');
+                    }
+                });
+            }
         },
     });
 };
