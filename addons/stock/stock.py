@@ -2524,6 +2524,13 @@ class stock_move(osv.osv):
                 done_picking.append(picking.id)
         if done_picking:
             picking_obj.write(cr, uid, done_picking, {'date_done': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)}, context=context)
+        for move in self.browse(cr, uid, ids, context=context):
+            pickings.add(move.picking_id.id)
+        picking_obj.browse(cr, uid, list(pickings)).filtered(
+            lambda picking: picking.state == 'done' and not \
+                picking.date_done).write({
+                    'date_done': time.strftime(
+                        DEFAULT_SERVER_DATETIME_FORMAT)})
         return True
 
     def unlink(self, cr, uid, ids, context=None):
