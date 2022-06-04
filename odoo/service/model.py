@@ -3,7 +3,7 @@
 from contextlib import closing
 from functools import wraps
 import logging
-from psycopg2 import IntegrityError, OperationalError, errorcodes
+from psycopg2 import IntegrityError, OperationalError, errorcodes, sql
 import random
 import threading
 import time
@@ -134,15 +134,41 @@ def check(f):
                                     _('Field:'), field.string if field else _('Unknown'), field.name if field else _('Unknown'),
                                 )
                         elif inst.pgcode == errorcodes.FOREIGN_KEY_VIOLATION:
-                            # This is raised when a field is set with `ondelete='restrict'`, at
-                            # unlink only.
-                            msg += _(' another model requires the record being deleted. If possible, archive it instead.')
-                            constraint = inst.diag.constraint_name
-                            if model or constraint:
-                                msg += '\n\n{} {} ({}), {} {}'.format(
-                                    _('Model:'), model._description if model else _('Unknown'), model._name if model else _('Unknown'),
-                                    _('Constraint:'), constraint if constraint else _('Unknown'),
-                                )
+                            if inst.diag.table_name:
+                                model_name = inst.diag.table_name.replace("_", ".")
+                                with registry.cursor() as curs:
+                                    curs.execute("""
+                                        SELECT attname FROM pg_attribute
+                                        WHERE attrelid = (
+                                            SELECT conrelid FROM pg_constraint
+                                            WHERE conname = %s)
+                                        AND ARRAY[attnum] = (
+                                            SELECT conkey FROM pg_constraint
+                                            WHERE conname = %s);
+                                    """,
+                                        (
+                                            inst.diag.constraint_name,
+                                            inst.diag.constraint_name,
+                                        )
+                                    )
+                                    ref_field = curs.fetchone()[0]
+                                    curs.execute(
+                                        sql.SQL(
+                                            """
+                                                SELECT id, name FROM {}
+                                                WHERE {} = ANY ({})
+                                            """
+                                        ).format(
+                                            sql.Identifier(inst.diag.table_name),
+                                            sql.Identifier(ref_field),
+                                            sql.Literal(kwargs["args"][0]),
+                                        ),
+                                    )
+                                    ref_records = curs.fetchall()
+                                    msg += "\n\nThe record(s) you are trying to delete are being referenced by the following records, try deleting them first or clear their field {} which refers to this record you are trying to delete".format(ref_field)
+                                    for rec in ref_records:
+                                        msg += '\n<a href="#id={}&model={}">{}</>'.format(rec[0], model_name, rec[1])
+                                    msg += ref_records
                     except Exception:
                         pass
                     raise ValidationError(msg)

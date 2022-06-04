@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-<div t-name="CrashManager.warning" class="o_dialog_warning" role="alert">
-    <p t-esc="widget.message" style="white-space: pre-wrap;"/>
-</div>
+    <div t-name="CrashManager.warning" class="o_dialog_warning" role="alert">
+        <p t-raw="widget.message" style="white-space: pre-wrap;"/>
+    </div>
 
 <div t-name="CrashManager.error" class="o_dialog_error">
     <div class="alert alert-warning clearfix" role="alert">
