@@ -278,6 +278,9 @@ var FieldMany2One = AbstractField.extend({
                             source.loading = false;
                             self.suggestions = self._concatenateAutocompleteResults();
                             resp(self.suggestions);
+                            if (self.suggestions.length === 1) {
+                                $('.o_field_x2many_list_row_add > a').click()
+                            }
                         });
                     }
                 });
