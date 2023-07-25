@@ -62,8 +62,7 @@
         <field name="name">stock.production.lot.tree</field>
         <field name="model">stock.lot</field>
         <field name="arch" type="xml">
-            <tree string="Asset Numbers" multi_edit="1" default_order="create_date" expand="1">
-                <field name="create_date" readonly="1"/>
+            <tree string="Asset Numbers" multi_edit="1" default_order="create_date desc" expand="1">
                 <field name="name" decoration-bf="1"/>
                 <field name="ref" optional="show"/>
                 <field name="product_id" readonly="1"/>
