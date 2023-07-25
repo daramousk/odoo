@@ -34,7 +34,7 @@
                     <filter string='Product' name="productgroup" context="{'group_by': 'product_id'}"/>
                     <filter string='Location' name="locationgroup" domain="[]" context="{'group_by': 'location_id'}"/>
                     <filter string='Owner' name="owner" context="{'group_by': 'owner_id'}" groups="stock.group_tracking_owner"/>
-                    <filter string='Lot/Serial Number' name="Lot_Serial_number" context="{'group_by': 'lot_id'}" groups="stock.group_production_lot"/>
+                    <filter string='Asset Number' name="Lot_Serial_number" context="{'group_by': 'lot_id'}" groups="stock.group_production_lot"/>
                     <filter string='Package' name="package" domain="[]" context="{'group_by': 'package_id'}" groups="stock.group_tracking_lot"/>
                     <filter string='Company' name="company" domain="[]" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
                </group>

@@ -31,7 +31,7 @@
                                 <th>Product</th>
                                 <th name="th_quantity" class="text-right">Quantity</th>
                                 <th name="th_uom" groups="uom.group_uom"/>
-                                <th name="th_serial" class="text-right" t-if="has_serial_number">Lot/Serial Number</th>
+                                <th name="th_serial" class="text-right" t-if="has_serial_number">Asset Number</th>
                             </tr>
                         </thead>
                         <tbody>

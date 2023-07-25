@@ -314,7 +314,7 @@
                             class="oe_stat_button" icon="fa-refresh">
                             <field name="nbr_reordering_rules" widget="statinfo"/>
                         </button>
-                        <button string="Lot/Serial Numbers" type="object"
+                        <button string="Asset Number" type="object"
                             name="action_open_product_lot"
                             attrs="{'invisible': [('tracking', '=', 'none')]}"
                             class="oe_stat_button" icon="fa-bars" groups="stock.group_production_lot"/>
@@ -420,7 +420,7 @@
                             icon="fa-refresh">
                             <field name="nbr_reordering_rules" widget="statinfo"/>
                          </button>
-                        <button string="Lot/Serial Numbers" type="object"
+                        <button string="Asset Number" type="object"
                             name="action_open_product_lot"
                             attrs="{'invisible': [('tracking', '=', 'none')]}"
                             class="oe_stat_button" icon="fa-bars" groups="stock.group_production_lot"/>

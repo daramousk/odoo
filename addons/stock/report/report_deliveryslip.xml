@@ -95,7 +95,7 @@
                                 <th name="th_sml_product"><strong>Product</strong></th>
                                 <t name="lot_serial" t-if="has_serial_number">
                                     <th>
-                                        Lot/Serial Number
+                                        Asset Number
                                     </th>
                                 </t>
                                 <th name="th_sml_qty_ordered" class="text-center" t-if="not has_serial_number">

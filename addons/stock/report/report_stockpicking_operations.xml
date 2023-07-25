@@ -80,7 +80,7 @@
                                             <strong>To</strong>
                                         </th>
                                         <th name="th_serial_number" class="text-center" t-if="has_serial_number">
-                                           <strong>Lot/Serial Number</strong>
+                                           <strong>Asset Number</strong>
                                         </th>
                                         <th name="th_barcode" class="text-center" t-if="has_barcode">
                                             <strong>Product Barcode</strong>

@@ -95,7 +95,7 @@
                 <field name="product_id"/>
                 <field name="location_id" string="Source Location" groups="stock.group_stock_multi_locations"/>
                 <field name="location_dest_id" string="Destination Location" groups="stock.group_stock_multi_locations"/>
-                <field name="lot_id" string="Lot/Serial Number" groups="stock.group_production_lot"/>
+                <field name="lot_id" string="Asset Number" groups="stock.group_production_lot"/>
                 <field name="package_id" string="Source Package" groups="stock.group_tracking_lot"/>
                 <field name="result_package_id" string="Destination Package" groups="stock.group_tracking_lot"/>
                 <field name="owner_id" string="Owner" groups="stock.group_tracking_owner"/>
