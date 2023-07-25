@@ -70,7 +70,7 @@
         </record>
 
     <menuitem id="menu_mrp_traceability"
-          name="Lots/Serial Numbers"
+          name="Asset Numbers"
           parent="menu_mrp_bom"
           action="stock.action_production_lot_form"
           groups="stock.group_production_lot"
