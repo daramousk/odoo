@@ -13,7 +13,7 @@
                                 <tr>
                                     <th groups="stock.group_stock_multi_locations"><strong>Location</strong></th>
                                     <th><strong>Product</strong></th>
-                                    <th groups="stock.group_production_lot"><strong>Lot/Serial Number</strong></th>
+                                    <th groups="stock.group_production_lot"><strong>Asset Number</strong></th>
                                     <th groups="stock.group_tracking_lot"><strong>Package</strong></th>
                                     <th class="text-end"><strong>Available Quantity</strong></th>
                                     <th class="text-end"><strong>On hand Quantity</strong></th>

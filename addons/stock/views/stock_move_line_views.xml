@@ -116,7 +116,7 @@
                 <field name="picking_id" string="Transfer"/>
                 <field name="reference" string="Reference"/>
                 <field name="product_category_name" string="Category"/>
-                <field name="lot_id" string="Lot/Serial Number" groups="stock.group_production_lot"/>
+                <field name="lot_id" string="Asset Number" groups="stock.group_production_lot"/>
                 <field name="package_id" string="Source Package" groups="stock.group_tracking_lot"/>
                 <field name="result_package_id" string="Destination Package" groups="stock.group_tracking_lot"/>
                 <field name="owner_id" string="Owner" groups="stock.group_tracking_owner"/>

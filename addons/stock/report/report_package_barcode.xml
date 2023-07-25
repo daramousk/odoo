@@ -48,7 +48,7 @@
                                 <th>Product</th>
                                 <th name="th_quantity" class="text-end">Quantity</th>
                                 <th name="th_uom" groups="uom.group_uom"/>
-                                <th name="th_serial" class="text-end" t-if="has_serial_number">Lot/Serial Number</th>
+                                <th name="th_serial" class="text-end" t-if="has_serial_number">Asset Number</th>
                                 <th name="th_barcode" class="text-end" t-if="has_ean_barcode"/>
                             </tr>
                         </thead>
