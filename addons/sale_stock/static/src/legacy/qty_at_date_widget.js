@@ -77,6 +77,21 @@ var QtyAtDateWidget = Widget.extend({
         ev.stopPropagation();
         // TODO: in case of kit product, the forecast view should show the kit's components (get_component)
         // The forecast_report doesn't not allow for now multiple products 
+        if (this.data.sale_order_type_id_name === "Rental Order") {
+            var action = await this._rpc({
+                model: 'product.product',
+                method: 'action_product_forecast_report',
+                args: [[this.data.rented_product_id.data.id]]
+            });
+            action.context = {
+                active_model: 'product.product',
+                active_id: this.data.rented_product_id.data.id,
+                warehouse: this.data.warehouse_id && this.data.warehouse_id.res_id,
+                move_to_match_ids: this.data.move_ids.res_ids, // TODO lines do not match, fix this
+                sale_line_to_match_id: this.data.id,
+            };
+            return this.do_action(action);
+        }
         var action = await this._rpc({
             model: 'product.product',
             method: 'action_product_forecast_report',

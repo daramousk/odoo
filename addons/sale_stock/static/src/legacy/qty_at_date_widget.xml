@@ -12,12 +12,24 @@
                     <tr>
                         <td><strong>Forecasted Stock</strong><br /><small>On <span t-esc="data.delivery_date"/></small></td>
                         <td><b t-esc='data.virtual_available_at_date'/>
-                        <t t-esc='data.product_uom.data.display_name'/></td>
+                            <t t-if="data.sale_order_type_id_name == 'Normal Order'">
+                                <t t-esc='data.product_uom.data.display_name'/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc='data.rented_product_uom.data.display_name'/>
+                            </t>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>Available</strong><br /><small>All planned operations included</small></td>
                         <td><b t-esc='data.free_qty_today' t-att-class="!data.will_be_fulfilled ? 'text-danger': ''"/>
-                        <t t-esc='data.product_uom.data.display_name'/></td>
+                            <t t-if="data.sale_order_type_id_name == 'Normal Order'">
+                                <t t-esc='data.product_uom.data.display_name'/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc='data.rented_product_uom.data.display_name'/>
+                            </t>
+                        </td>
                     </tr>
                 </t>
                 <t t-elif="data.is_mto and ['draft', 'sent'].includes(data.state)">
