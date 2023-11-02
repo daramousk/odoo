@@ -278,7 +278,9 @@ var FieldMany2One = AbstractField.extend({
                             self.suggestions = self._concatenateAutocompleteResults();
                             resp(self.suggestions);
                             if (self.suggestions.length === 1 && self.model === "stock.move") {
-                                $('.o_field_x2many_list_row_add > a').click()
+                                $('.o_field_x2many_list_row_add > a').click();
+                            } else if (self.suggestions.length === 2 && self.model === "stock.move.line") {
+                                $('.ui-state-active').click();
                             }
                         });
                     }
